@@ -16,6 +16,9 @@ class Material(models.Model):
 
 
 class Size(models.Model):
+    Product = models.ManyToManyField('Product')
+    Color = models.ManyToManyField(Color)
+    Material = models.ManyToManyField(Material)
     value = models.CharField(max_length=10)
     
     def __str__(self) -> str:
@@ -27,10 +30,10 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     is_popular = models.BooleanField(default=False)
     season = models.CharField(max_length=200)
-    materials = models.ManyToManyField(Material)
-    colors = models.ManyToManyField(Color)
-    sizes = models.ManyToManyField(Size)
-    price = models.CharField(max_length=5,default='noprice')
+    materials = models.ForeignKey(Material, on_delete=models.CASCADE)
+    colors = models.ForeignKey(Color, on_delete=models.CASCADE)
+    sizes = models.ForeignKey(Size, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=8,decimal_places=0)
     image = models.ImageField(upload_to='imgs/products')
     category = models.CharField(max_length=250)
     country = models.CharField(max_length=200)
@@ -43,18 +46,3 @@ class Product(models.Model):
     def __str__(self) -> str:
         return f'{self.article}'
     
-
-class ProductColor(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    color = models.ForeignKey(Color, models.CASCADE)
-
-
-class ProductMaterial(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    color = models.ForeignKey(Color, on_delete=models.CASCADE)
-    
-
-
-class ProductSize(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)

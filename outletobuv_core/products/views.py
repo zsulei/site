@@ -80,112 +80,112 @@ from django.db import transaction
 #     return redirect(index)
 
 
-# def parse_and_insert(request):
-#     file = 'C:/Users/2021/Desktop/site/TSGoods.trs'
-#     f = open(file, 'r', encoding='utf-8')
-#     lines = f.readlines()
+def parse_and_insert(request):
+    file = 'C:/Users/2021/Desktop/site/TSGoods.trs'
+    f = open(file, 'r', encoding='utf-8')
+    lines = f.readlines()
 
-#     for row in lines:
+    for row in lines:
 
-#         splitted_line = row.split(';')
-#         article = splitted_line[0].replace('"', '')
-#         country = splitted_line[6].replace('"', '')
-#         season = splitted_line[8].replace('"', '')
-#         price = splitted_line[-1]
-#         category = splitted_line[1].replace('"', '')
-#         name = 'Поменяйте название'
-#         description = 'Поменяйте описание'
+        splitted_line = row.split(';')
+        article = splitted_line[0].replace('"', '')
+        country = splitted_line[6].replace('"', '')
+        season = splitted_line[8].replace('"', '')
+        price = splitted_line[-1]
+        category = splitted_line[1].replace('"', '')
+        name = 'Поменяйте название'
+        description = 'Поменяйте описание'
 
-#         try:
-#             color = splitted_line[5].split(',')[0].split(' ')[1]
-#         except IndexError as e:
-#             color = ''
-#         # color, created = Color.objects.get_or_create(name=color)
+        try:
+            color = splitted_line[5].split(',')[0].split(' ')[1]
+        except IndexError as e:
+            color = ''
+        # color, created = Color.objects.get_or_create(name=color)
 
 
-#         material = splitted_line[4].replace('"', '')
-#         # material, created = Material.objects.get_or_create(name=material_title)
+        material = splitted_line[4].replace('"', '')
+        # material, created = Material.objects.get_or_create(name=material_title)
 
-#         size = splitted_line[5].split()[-1].replace('"', '')
-#         # size, created = Size.objects.get_or_create(value=size)
+        size = splitted_line[5].split()[-1].replace('"', '')
+        # size, created = Size.objects.get_or_create(value=size)
         
-#         existed_product = Product.objects.filter(article=article).first()
+        existed_product = Product.objects.filter(article=article).first()
 
-#         if existed_product:
-#             #Если такой артикул есть:
-#             if existed_product.materials.filter(name=material).first():
-#                 #Если есть такой материал:
-#                 if existed_product.colors.filter(name=color).first():
-#                     #Если есть такой цвет:
-#                     size_obj, created_size = Size.objects.get_or_create(value=size)
-#                     existed_product.sizes.add(size_obj)
-#                     #Привязываем размер к продукту с таким артикулом, материлом и цветом
-#                 else:
-#                     #Если нет такого цвета,
-#                     # мы создаем новый продукт
-#                     # с таким артикулом и новым цветом
-#                     product, created = Product.objects.get_or_create(
-#                         article=article,
-#                         defaults={
-#                             'name': name,
-#                             'category': category,
-#                             'description': description,
-#                             'country': country,
-#                             'season': season,
-#                             'price': price,
-#                         }
-#                     )
-#                     size_obj, created_size = Size.objects.get_or_create(value=size)
-#                     product.sizes.add(size_obj)
-#                     color_obj, created_material = Color.objects.get_or_create(name=color)
-#                     product.colors.add(color_obj)
-#             else:
-#                 #Если нет такого матерала,
-#                 # мы создаем новый продукт
-#                 # с таким артикулом и новым материалом
-#                 material_obj, created_material = Material.objects.get_or_create(name=material)
+        if existed_product:
+            #Если такой артикул есть:
+            if existed_product.materials.filter(name=material).first():
+                #Если есть такой материал:
+                if existed_product.colors.filter(name=color).first():
+                    #Если есть такой цвет:
+                    size_obj, created_size = Size.objects.get_or_create(value=size)
+                    existed_product.sizes.add(size_obj)
+                    #Привязываем размер к продукту с таким артикулом, материлом и цветом
+                else:
+                    #Если нет такого цвета,
+                    # мы создаем новый продукт
+                    # с таким артикулом и новым цветом
+                    product, created = Product.objects.get_or_create(
+                        article=article,
+                        defaults={
+                            'name': name,
+                            'category': category,
+                            'description': description,
+                            'country': country,
+                            'season': season,
+                            'price': price,
+                        }
+                    )
+                    size_obj, created_size = Size.objects.get_or_create(value=size)
+                    product.sizes.add(size_obj)
+                    color_obj, created_material = Color.objects.get_or_create(name=color)
+                    product.colors.add(color_obj)
+            else:
+                #Если нет такого матерала,
+                # мы создаем новый продукт
+                # с таким артикулом и новым материалом
+                material_obj, created_material = Material.objects.get_or_create(name=material)
 
-#                 product, created = Product.objects.create(
-#                     article=article,
-#                     defaults={
-#                         'name': name,
-#                         'category': category,
-#                         'description': description,
-#                         'country': country,
-#                         'season': season,
-#                         'price': price,
-#                     }
-#                 )
-#                 product.materials.add(material_obj)
-#         else:
-#             #Есои нет такого артикула, 
-#             #то создаем продукт с таким артикулом
-#             product, created = Product.objects.create(
-#                 article=article,
-#                 defaults={
-#                     'name': name,
-#                     'category': category,
-#                     'description': description,
-#                     'country': country,
-#                     'season': season,
-#                     'price': price,
-#                 }
-#             )
+                product, created = Product.objects.create(
+                    article=article,
+                    defaults={
+                        'name': name,
+                        'category': category,
+                        'description': description,
+                        'country': country,
+                        'season': season,
+                        'price': price,
+                    }
+                )
+                product.materials.add(material_obj)
+        else:
+            #Есои нет такого артикула, 
+            #то создаем продукт с таким артикулом
+            product, created = Product.objects.create(
+                article=article,
+                defaults={
+                    'name': name,
+                    'category': category,
+                    'description': description,
+                    'country': country,
+                    'season': season,
+                    'price': price,
+                }
+            )
 
-#             material_obj, created_material = Material.objects.get_or_create(name=material)
-#             product.materials.add(material_obj)
+            material_obj, created_material = Material.objects.get_or_create(name=material)
+            product.materials.add(material_obj)
 
-#             color_obj, created_material = Color.objects.get_or_create(name=color)
-#             product.colors.add(color_obj)
+            color_obj, created_material = Color.objects.get_or_create(name=color)
+            product.colors.add(color_obj)
 
-#             size_obj, created_size = Size.objects.get_or_create(value=size)
-#             product.sizes.add(size_obj)
-#     else:
+            size_obj, created_size = Size.objects.get_or_create(value=size)
+            product.sizes.add(size_obj)
+    else:
         
         
-#         print(f"Product {product.article} created successfully.")
+        print(f"Product {product.article} created successfully.")
         
-#     return render(request, 'products/index.html')
+    return render(request, 'products/index.html')
 
 
 def index(request):
