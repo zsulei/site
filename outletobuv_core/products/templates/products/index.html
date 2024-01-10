@@ -1,0 +1,40 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<a href='{% url 'products:parse' %}'>test</a>
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-4 col-md-6">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid mb-2"/>
+                {% else %}
+                    <img align="left" src="{{ 'media/imgs/default.PNG'}}" class="img-fluid mb-2">
+                {% endif %}
+
+                <p>Артикул: <a href="{% url 'products:detail' product.id %}">{{ product.article }}</a></p>
+
+                {% comment %} {% for size in product.sizes.all %}
+                    <h3>Size: {{ size.value }}</h3>
+                {% endfor %}
+
+                <br>
+
+                {% for material in product.materials.all %}
+                    <h2>Material: {{ material.name }}</h3>
+                {% endfor %}
+
+                {% for color in product.colors.all %}
+                    <h2>Color: {{ color.name }}</h3>
+                {% endfor %} {% endcomment %}
+
+                <h3>Price: {{ product.price }}</h3>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
