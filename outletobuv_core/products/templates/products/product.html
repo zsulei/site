@@ -6,20 +6,16 @@
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <h3>Артикул: {{ product.article }}</h3>
-                <h3>Season: {{ product.season }}</h3>
-                <h3>category: {{ product.category }}</h3>
-                <h3>subcategory: {{ product.subcategory }}</h3>
-                
-                {% for material in product.materials.all %}
-                    <h3>Material: {{ material.name }}</h3>
+                <h3>Сезон: {{ product.season }}</h3>
+                <h3>Категория: {{ product.category.title }}</h3>                                
+                <h3>Материал: {{ product.materials.name }}</h3>
+                <h3>Цвет: {{ color.name }}</h3>
+                <h3>Размер: 
+                {% for size in sizes %}
+                    {{ size }}
                 {% endfor %}
-                
-                {% for color in product.colors.all %}
-                    <h3>Color: {{ color.name }}</h3>
-                {% endfor %}
-
-                <h3>Size: {{ product.size }}</h3>
-                <h3>Price: {{ product.price }} тг.</h3>
+                </h3>
+                <h3>Цена: {{ product.price }} тг.</h3>
             </div>
             <div class="col-lg-4 col-md-6">
                 {% if product.image %}

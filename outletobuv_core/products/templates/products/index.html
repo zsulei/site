@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 
-<a href='{% url 'products:parse' %}'>test</a>
+<a href='{% url 'products:parse_tsgoods' %}'>test</a>
 <div class="container">
     <div class="row">
         {% for product in products %}
@@ -23,14 +23,14 @@
 
                 <br>
 
-                {% for material in product.materials.all %}
-                    <h2>Material: {{ material.name }}</h3>
-                {% endfor %}
 
                 {% for color in product.colors.all %}
                     <h2>Color: {{ color.name }}</h3>
                 {% endfor %} {% endcomment %}
 
+                <p>Material: <a href="{% url 'products:detail' product.id %}">{{ product.materials }}</a></p>
+
+                <p>цвет: <a href="{% url 'products:detail' product.id %}">{{ product.colors }}</a></p>
                 <h3>Price: {{ product.price }}</h3>
                 <hr>
             </div>

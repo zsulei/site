@@ -4,7 +4,7 @@ from django.views.decorators.cache import cache_page
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import products, index, product, parse_and_insert
+from .views import about, products, index, product, parse_tsgoods_view
 
 app_name = 'products'
 
@@ -12,9 +12,11 @@ urlpatterns = [
     # path('', IndexView.as_view(), name='index'),
     path('', index, name='index'),
     path('<int:product_id>/', product, name='detail'),
-    path('parse/', parse_and_insert, name='parse'),
+    path('about/', about, name='about'),
     path('category/<int:category_id>/', products, name='category'),
     path('page/<int:page_number>/', products, name='paginator'),
+    path('parse-tsgoods/', parse_tsgoods_view, name='parse_tsgoods'),
+
     # path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
     # path('baskets/remove/<int:basket_id>/', basket_remove, name='basket_remove'),
 ]
@@ -22,3 +24,4 @@ urlpatterns = [
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
                               document_root=settings.MEDIA_ROOT)
+        
