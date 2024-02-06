@@ -1,40 +1,38 @@
 {% extends 'products/base.html' %}
-
-{% block content %}
 {% load static %}
 
-<a href='{% url 'products:parse_tsgoods' %}'>test</a>
-<div class="container">
-    <div class="row">
-        {% for product in products %}
-            <div class="col-lg-4 col-md-6">
+{% block css %}
 
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" class="img-fluid mb-2"/>
-                {% else %}
-                    <img align="left" src="{{ 'media/imgs/default.PNG'}}" class="img-fluid mb-2">
-                {% endif %}
+{% endblock %}
 
-                <p>Артикул: <a href="{% url 'products:detail' product.id %}">{{ product.article }}</a></p>
-
-                {% comment %} {% for size in product.sizes.all %}
-                    <h3>Size: {{ size.value }}</h3>
-                {% endfor %}
-
-                <br>
-
-
-                {% for color in product.colors.all %}
-                    <h2>Color: {{ color.name }}</h3>
-                {% endfor %} {% endcomment %}
-
-                <p>Material: <a href="{% url 'products:detail' product.id %}">{{ product.materials }}</a></p>
-
-                <p>цвет: <a href="{% url 'products:detail' product.id %}">{{ product.colors }}</a></p>
-                <h3>Price: {{ product.price }}</h3>
-                <hr>
+{% block content %}
+<!-- Page Content -->
+<section>
+    <!--    <div class="alert alert-light text-center" role="alert">-->
+    <!--        Информационное сообщение-->
+    <!--    </div>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="mt-5">Outlet Obuv</h1>
+                <p>
+                    Доставка по всему миру!
+                    {% if is_promotion %}
+                    {% endif %}
+                </p>
+                {% comment %} <button id="start-purchase-btn" type="button" class="btn btn-lg">
+                    <a id="start-purchase-link" href="{% url 'products:paginator' %} ">
+                        Начать покупки
+                    </a>
+                </button> {% endcomment %}
+                <button id="start-purchase-btn" type="button" class="btn btn-lg">
+                    <a id="start-purchase-link" href="{% url 'products:category' 1 %}">
+                        Начать покупки
+                    </a>
+                </button>
             </div>
-        {% endfor %}
+        </div>
     </div>
-</div>
+</section>
+
 {% endblock %}

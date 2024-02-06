@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
-
+from django import forms
 
 from users.models import User
 
@@ -86,4 +86,4 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name',
-                  'image', 'username', 'phone_number', 'email')
+                  'username', 'phone_number', 'email')

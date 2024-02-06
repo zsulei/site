@@ -7,22 +7,20 @@
 
 {% block content %}
 
-<!-- Page Content -->
 <div class="container">
 
     <div class="row">
 
         <div class="col-lg-3">
 
-            <h1 class="mt-5">Store</h1>
+            <h1 class="mt-5">Outlet Obuv</h1>
             <div class="list-group">
                 {% for category in categories %}
-                <a  href="{% url 'products:category' category.id %}" class="list-group-item">{{ category.title }}</a>
+                <a href="{% url 'products:category' category.id %}" class="list-group-item">{{ category.title }}</a>
                 {% endfor %}
             </div>
 
         </div>
-        <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
@@ -54,10 +52,10 @@
             </div>
 
             <div class="row">
-                {% for product in products %}
+                {% for product in object_list %}
                     <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#">
+                        <a href="{% url 'products:detail' product.id %}">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="img-fluid mb-2"/>
                     {% else %}
@@ -117,11 +115,9 @@
 {% endblock %}
 
 {% block footer %}
-<!-- Footer -->
 <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
+        <p class="m-0 text-center text-white">Since 2019</p>
     </div>
-    <!-- /.container -->
 </footer>
 {% endblock %}

@@ -3,12 +3,12 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from users.models import User
-from users.forms import UserRegistrationForm, UserProfileForm
+from users.forms import UserRegistrationForm, UserProfileForm, UserLoginForm
 from django.contrib.auth.views import LoginView
 
 
 class UserRegistrationView(SuccessMessageMixin, CreateView):
-    model= User
+    model = User
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
     success_url = reverse_lazy('users:login')

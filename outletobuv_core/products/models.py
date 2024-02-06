@@ -4,12 +4,23 @@ from django.db import models
 class Category(models.Model):
     title = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name ='Категория'
+        verbose_name_plural = 'Категории'
+
 
 class Color(models.Model):
     name = models.CharField(max_length=50)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Цвет'
+        verbose_name_plural = 'Цвета'
 
 
 class Material(models.Model):
@@ -17,6 +28,10 @@ class Material(models.Model):
     
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        verbose_name = 'Материал'
+        verbose_name_plural = 'Материалы'
 
 
 class Size(models.Model):
@@ -26,7 +41,13 @@ class Size(models.Model):
     value = models.CharField(max_length=10)
     
     def __str__(self) -> str:
-        return self.value
+        color = ' '.join(str(color) for color in self.color.all())
+        material = ' '.join(str(material) for material in self.material.all())
+        return f'{self.value} | {self.product} | {color} | {material}'
+    
+    class Meta:
+        verbose_name = 'Размер'
+        verbose_name_plural = 'Размеры'
 
 
 class Product(models.Model):
